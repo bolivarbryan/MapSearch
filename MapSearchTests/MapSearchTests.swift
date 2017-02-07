@@ -13,24 +13,27 @@ class MapSearchTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testAddressCoordinate_ShouldBeAValidCoordinate() {
+        // given
+        let latitude = 100.0
+        let longitude = 300.0
+        let name = "test"
+        let formattedAddress = "Barranquilla Colombia"
+        let placeID = "X0X0X0"
+        //when
+        let acceptedValue = 80.0
+        let address = Address(name: name, formattedAddress: formattedAddress, location: (latitude, longitude), placeID: placeID)
+        //then
+        XCTAssertTrue(address.location.latitude < acceptedValue, "Latitude should be less than \(acceptedValue)")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testAddressPlaceID_ShouldHaveADifferentID() {
+        
     }
-    
 }

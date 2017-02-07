@@ -15,6 +15,9 @@
 		935C359C1E4A2CAF00C12449 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 935C359A1E4A2CAF00C12449 /* LaunchScreen.storyboard */; };
 		935C35A71E4A2CAF00C12449 /* MapSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C35A61E4A2CAF00C12449 /* MapSearchTests.swift */; };
 		935C35B21E4A2CB000C12449 /* MapSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C35B11E4A2CAF00C12449 /* MapSearchUITests.swift */; };
+		935C35C41E4A382400C12449 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C35C31E4A382400C12449 /* Address.swift */; };
+		935C35C51E4A39CB00C12449 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C35C31E4A382400C12449 /* Address.swift */; };
+		935C35C81E4A4F4D00C12449 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C35C71E4A4F4D00C12449 /* DatabaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,8 @@
 		935C35AD1E4A2CAF00C12449 /* MapSearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapSearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		935C35B11E4A2CAF00C12449 /* MapSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchUITests.swift; sourceTree = "<group>"; };
 		935C35B31E4A2CB000C12449 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		935C35C31E4A382400C12449 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Address.swift; path = Model/Address.swift; sourceTree = "<group>"; };
+		935C35C71E4A4F4D00C12449 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = Data/DatabaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +104,8 @@
 		935C358D1E4A2CAF00C12449 /* MapSearch */ = {
 			isa = PBXGroup;
 			children = (
+				935C35C61E4A4F3400C12449 /* Data */,
+				935C35C21E4A381500C12449 /* Model */,
 				935C358E1E4A2CAF00C12449 /* AppDelegate.swift */,
 				935C35901E4A2CAF00C12449 /* ViewController.swift */,
 				935C35921E4A2CAF00C12449 /* Main.storyboard */,
@@ -126,6 +133,22 @@
 				935C35B31E4A2CB000C12449 /* Info.plist */,
 			);
 			path = MapSearchUITests;
+			sourceTree = "<group>";
+		};
+		935C35C21E4A381500C12449 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				935C35C31E4A382400C12449 /* Address.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		935C35C61E4A4F3400C12449 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				935C35C71E4A4F4D00C12449 /* DatabaseManager.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +290,8 @@
 			files = (
 				935C35971E4A2CAF00C12449 /* MapSearch.xcdatamodeld in Sources */,
 				935C35911E4A2CAF00C12449 /* ViewController.swift in Sources */,
+				935C35C81E4A4F4D00C12449 /* DatabaseManager.swift in Sources */,
+				935C35C41E4A382400C12449 /* Address.swift in Sources */,
 				935C358F1E4A2CAF00C12449 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935C35C51E4A39CB00C12449 /* Address.swift in Sources */,
 				935C35A71E4A2CAF00C12449 /* MapSearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -406,7 +432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -520,6 +546,7 @@
 				935C35B81E4A2CB000C12449 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		935C35B91E4A2CB000C12449 /* Build configuration list for PBXNativeTarget "MapSearchTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +555,7 @@
 				935C35BB1E4A2CB000C12449 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		935C35BC1E4A2CB000C12449 /* Build configuration list for PBXNativeTarget "MapSearchUITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +564,7 @@
 				935C35BE1E4A2CB000C12449 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
