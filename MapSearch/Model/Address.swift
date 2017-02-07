@@ -16,7 +16,7 @@ struct Address {
     var formattedAddress: String
     var location: Coordinate
     var placeID:String
-    
+
     init(name: String, formattedAddress:String, location: Coordinate, placeID: String) {
         self.name = name
         self.formattedAddress = formattedAddress
@@ -28,6 +28,5 @@ struct Address {
             self.location.latitude = 0
             self.location.longitude = 0
         }
-        
     }
 }

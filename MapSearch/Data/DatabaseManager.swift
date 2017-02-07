@@ -8,23 +8,106 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 struct DatabaseManager {
-    
-    enum ProggressStatus {
-        case Success
-        case Error
+    enum ProggressStatus: String {
+        case success = "Success"
+        case error  = "Error"
+        case alreadySaved  = "Registry already Saved"
     }
-    
-    static func saveAddress(parameters: Address, entity: String, completion: ((_ result : ProggressStatus ) -> Void)) {
+
+     static func saveAddress(address: Address, completion: ((_ result : ProggressStatus ) -> Void)) {
         
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        //verify there is not a same place in database
+        if DatabaseManager.findAddressInDatabase(address: address) == nil {
+            if #available(iOS 10.0, *) {
+                let managedContext = appDelegate.persistentContainer.viewContext
+                let entity =  NSEntityDescription.entity(forEntityName: "Location", in: managedContext)!
+                let addressObject = NSManagedObject(entity: entity, insertInto: managedContext)
+                addressObject.setValue(address.name, forKeyPath: "name")
+                addressObject.setValue(address.formattedAddress, forKeyPath: "formattedAddress")
+                addressObject.setValue(address.location.longitude, forKeyPath: "longitude")
+                addressObject.setValue(address.location.latitude, forKeyPath: "latitude")
+                addressObject.setValue(address.placeID, forKeyPath: "placeID")
+                
+                do {
+                    try managedContext.save()
+                    completion(ProggressStatus.success)
+                } catch let error as NSError {
+                    print("Save Error. \(error), \(error.userInfo)")
+                    completion(ProggressStatus.error)
+                }
+                
+            } else {
+                // Fallback on earlier versions
+            }
+        }else {
+            //already saved
+            completion(ProggressStatus.alreadySaved)
+        }
+
     }
     
     static func listAllAddresses() -> [Address] {
-        return []
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return []
+        }
+        
+        if #available(iOS 10.0, *) {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest =
+                NSFetchRequest<NSManagedObject>(entityName: "Location")
+            do {
+               let addressObjects = try managedContext.fetch(fetchRequest)
+                var addresses:[Address] = []
+                for addressObject in addressObjects {
+                    print(addressObject)
+                    let address = Address(name: addressObject.value(forKey: "name") as! String, formattedAddress: addressObject.value(forKey: "formattedAddress") as! String, location: (addressObject.value(forKey: "latitude") as! Double, addressObject.value(forKey: "longitude") as! Double), placeID: addressObject.value(forKey: "placeID") as! String)
+                        addresses.append(address)
+                }
+                return addresses
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+                return []
+            }
+        } else {
+            // Fallback on earlier versions
+            
+            return []
+        }
     }
     
     static func findAddressInDatabase(address: Address) -> Address? {
-        return nil
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return nil
+        }
+        
+        if #available(iOS 10.0, *) {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest =
+                NSFetchRequest<NSManagedObject>(entityName: "Location")
+            fetchRequest.predicate = NSPredicate(format: "placeID == %@", address.placeID)
+            do {
+                let addressObjects = try managedContext.fetch(fetchRequest)
+                for addressObject in addressObjects {
+                    return Address(name: addressObject.value(forKey: "name") as! String, formattedAddress: addressObject.value(forKey: "formattedAddress") as! String, location: (addressObject.value(forKey: "latitude") as! Double, addressObject.value(forKey: "longitude") as! Double), placeID: addressObject.value(forKey: "placeID") as! String)
+                }
+                return nil
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+                return nil
+            }
+        } else {
+            // Fallback on earlier versions
+            return nil
+        }
     }
 }
