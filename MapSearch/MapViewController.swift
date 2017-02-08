@@ -60,13 +60,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             DatabaseManager.sharedInstance.deleteAddress(address: self.selectedPlace)
             self.navigationItem.rightBarButtonItem = self.saveButtonItem
         }
+        
         actionSheetController.addAction(cancelAction)
         actionSheetController.addAction(okAction)
-
         self.present(actionSheetController, animated: true, completion: nil)
-        
-      
-        
     }
     
     func centerMapInplaces() {
@@ -78,13 +75,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotation.subtitle = place.formattedLocation()
             storedAnnotations.append((annotation, place))
         }
+        
         var annotationObjects:[MKAnnotation] = []
         var _ = storedAnnotations.map { tuple in
             annotationObjects.append(tuple.annotation)
         }
+        
         mapView.addAnnotations(annotationObjects)
         mapView.showAnnotations(annotationObjects, animated: true)
-        
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
