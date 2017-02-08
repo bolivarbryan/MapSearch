@@ -29,4 +29,8 @@ struct Address {
             self.location.longitude = 0
         }
     }
+    
+    func formattedLocation() -> String {
+        return "(\(Float(self.location.latitude)), \(Float(self.location.longitude)))"
+    }
 }

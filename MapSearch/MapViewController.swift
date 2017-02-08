@@ -10,27 +10,30 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-
+    var places:[Address] = []
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        if places.count == 1 {
+            self.centerMapInPlace(place: places[0])
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
-    */
+
+    func centerMapInPlace(place: Address) {
+        let coordinate = CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude)
+        let span = MKCoordinateSpanMake(0.075, 0.075)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = place.formattedAddress
+        annotation.subtitle = place.formattedLocation()
+        mapView.setRegion(region, animated: true)
+        mapView.addAnnotation(annotation)
+    }
 
 }

@@ -41,7 +41,7 @@
                     <navigationItem key="navigationItem" id="7Fu-Jc-J9U"/>
                     <connections>
                         <outlet property="tableView" destination="9z0-Ig-fn9" id="QQp-6U-U8x"/>
-                        <segue destination="YZp-kc-xeD" kind="show" id="yGI-a9-wJC"/>
+                        <segue destination="YZp-kc-xeD" kind="show" identifier="MapDetailsSegue" id="yGI-a9-wJC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -72,6 +72,9 @@
                             <constraint firstAttribute="trailing" secondItem="z70-UU-XD3" secondAttribute="trailing" id="mSR-3Y-bhV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="z70-UU-XD3" id="i3W-ka-2F0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMQ-xT-DoF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -83,7 +86,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="aa5-yK-1Rl" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ToL-LX-pFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ToL-LX-pFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

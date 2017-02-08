@@ -18,6 +18,7 @@ class AddressListViewController: UIViewController, UISearchResultsUpdating {
     let kLocationCellIdentifier = "LocationCellIdentifier"
     let searchController = UISearchController(searchResultsController: nil)
     var isSearching = false
+    var selectedPlaces:[Address] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +43,17 @@ class AddressListViewController: UIViewController, UISearchResultsUpdating {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "MapDetailsSegue" {
+            (segue.destination as! MapViewController).places = selectedPlaces
+        }
     }
-    */
+    
     
     //MARK: - UISearchBar Delegate
     func updateSearchResults(for searchController: UISearchController) {
@@ -79,7 +82,9 @@ extension AddressListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
+    
 }
+
 //MARK: - UITableView DataSource and Delegate Methods
 
 extension AddressListViewController: UITableViewDataSource {
@@ -106,6 +111,17 @@ extension AddressListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if allLocationsSectionEnabled == true {
+            if indexPath.section == 0 {
+                self.selectedPlaces = self.places
+            }else{
+                self.selectedPlaces = [self.places[indexPath.row]]
+            }
+        }else {
+            self.selectedPlaces = [self.places[indexPath.row]]
+        }
+        
+        self.performSegue(withIdentifier: "MapDetailsSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
