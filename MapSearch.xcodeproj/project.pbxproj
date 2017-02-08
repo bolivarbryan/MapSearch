@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9320299F1E4A67DE008A70FA /* AddressListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320299E1E4A67DE008A70FA /* AddressListViewController.swift */; };
-		932029A01E4A67E1008A70FA /* AddressListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320299E1E4A67DE008A70FA /* AddressListViewController.swift */; };
 		932029A21E4A67EF008A70FA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932029A11E4A67EF008A70FA /* MapViewController.swift */; };
 		932029A31E4A67EF008A70FA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932029A11E4A67EF008A70FA /* MapViewController.swift */; };
+		9358E6C11E4A918D00BCE796 /* AddressListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9358E6C01E4A918D00BCE796 /* AddressListViewController.swift */; };
+		9358E6C21E4A918D00BCE796 /* AddressListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9358E6C01E4A918D00BCE796 /* AddressListViewController.swift */; };
 		935C358F1E4A2CAF00C12449 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C358E1E4A2CAF00C12449 /* AppDelegate.swift */; };
 		935C35941E4A2CAF00C12449 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 935C35921E4A2CAF00C12449 /* Main.storyboard */; };
 		935C35971E4A2CAF00C12449 /* MapSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 935C35951E4A2CAF00C12449 /* MapSearch.xcdatamodeld */; };
@@ -41,8 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9320299E1E4A67DE008A70FA /* AddressListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressListViewController.swift; path = Controller/AddressListViewController.swift; sourceTree = "<group>"; };
 		932029A11E4A67EF008A70FA /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9358E6C01E4A918D00BCE796 /* AddressListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddressListViewController.swift; path = Controller/AddressList/AddressListViewController.swift; sourceTree = "<group>"; };
 		935C358B1E4A2CAF00C12449 /* MapSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		935C358E1E4A2CAF00C12449 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		935C35931E4A2CAF00C12449 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		9320299D1E4A66E0008A70FA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9320299E1E4A67DE008A70FA /* AddressListViewController.swift */,
+				9358E6C01E4A918D00BCE796 /* AddressListViewController.swift */,
 				932029A11E4A67EF008A70FA /* MapViewController.swift */,
 			);
 			name = Controller;
@@ -303,8 +303,8 @@
 			files = (
 				935C35971E4A2CAF00C12449 /* MapSearch.xcdatamodeld in Sources */,
 				935C35C81E4A4F4D00C12449 /* DatabaseManager.swift in Sources */,
-				9320299F1E4A67DE008A70FA /* AddressListViewController.swift in Sources */,
 				935C35C41E4A382400C12449 /* Address.swift in Sources */,
+				9358E6C11E4A918D00BCE796 /* AddressListViewController.swift in Sources */,
 				935C358F1E4A2CAF00C12449 /* AppDelegate.swift in Sources */,
 				932029A21E4A67EF008A70FA /* MapViewController.swift in Sources */,
 			);
@@ -314,10 +314,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932029A01E4A67E1008A70FA /* AddressListViewController.swift in Sources */,
 				935C35C51E4A39CB00C12449 /* Address.swift in Sources */,
 				935C35A71E4A2CAF00C12449 /* MapSearchTests.swift in Sources */,
 				932029A31E4A67EF008A70FA /* MapViewController.swift in Sources */,
+				9358E6C21E4A918D00BCE796 /* AddressListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

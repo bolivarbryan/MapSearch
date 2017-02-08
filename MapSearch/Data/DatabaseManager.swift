@@ -10,14 +10,20 @@ import Foundation
 import CoreData
 import UIKit
 
-struct DatabaseManager {
+private let sharedDatabase = DatabaseManager()
+
+class DatabaseManager {
     enum ProggressStatus: String {
         case success = "Success"
         case error  = "Error"
         case alreadySaved  = "Registry already Saved"
     }
 
-     static func saveAddress(address: Address, completion: ((_ result : ProggressStatus ) -> Void)) {
+    class var sharedInstance: DatabaseManager {
+        return sharedDatabase
+    }
+    
+    func saveAddress(address: Address, completion: ((_ result : ProggressStatus ) -> Void)) {
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -25,7 +31,7 @@ struct DatabaseManager {
         }
         
         //verify there is not a same place in database
-        if DatabaseManager.findAddressInDatabase(address: address) == nil {
+        if self.findAddressInDatabase(address: address) == nil {
             if #available(iOS 10.0, *) {
                 let managedContext = appDelegate.persistentContainer.viewContext
                 let entity =  NSEntityDescription.entity(forEntityName: "Location", in: managedContext)!
@@ -54,7 +60,7 @@ struct DatabaseManager {
 
     }
     
-    static func listAllAddresses() -> [Address] {
+    func listAllAddresses() -> [Address] {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return []
@@ -84,7 +90,7 @@ struct DatabaseManager {
         }
     }
     
-    static func findAddressInDatabase(address: Address) -> Address? {
+    func findAddressInDatabase(address: Address) -> Address? {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return nil

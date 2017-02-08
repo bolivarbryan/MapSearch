@@ -16,11 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let address:Address = Address(name: "Casa de julieth", formattedAddress: "Calle 44 # 20 - 150", location: (100, 100), placeID: "ABC")
         
-        DatabaseManager.saveAddress(address: address) { (status) in
+        DatabaseManager.sharedInstance.saveAddress(address: address) { (status) in
             print(status.rawValue)
         }
         
-        print(DatabaseManager.listAllAddresses())
+        print(DatabaseManager.sharedInstance.listAllAddresses())
+        
         return true
     }
     
