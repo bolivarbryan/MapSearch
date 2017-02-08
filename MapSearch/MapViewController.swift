@@ -54,9 +54,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func deleteSelectedPlace() {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this record?", preferredStyle: .actionSheet)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in }
+        let okAction: UIAlertAction = UIAlertAction(title: "Delete", style: .default) { action -> Void in
+            DatabaseManager.sharedInstance.deleteAddress(address: self.selectedPlace)
+            self.navigationItem.rightBarButtonItem = self.saveButtonItem
+        }
+        actionSheetController.addAction(cancelAction)
+        actionSheetController.addAction(okAction)
+
+        self.present(actionSheetController, animated: true, completion: nil)
         
-        DatabaseManager.sharedInstance.deleteAddress(address: selectedPlace)
-        self.navigationItem.rightBarButtonItem = saveButtonItem
+      
         
     }
     

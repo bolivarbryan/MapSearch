@@ -34,7 +34,7 @@ class AddressListViewController: UIViewController, UISearchResultsUpdating {
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,10 +46,10 @@ class AddressListViewController: UIViewController, UISearchResultsUpdating {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -148,9 +148,15 @@ extension AddressListViewController: UITableViewDataSource {
     }
     
     func locationCell(place: Address) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: kLocationCellIdentifier)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: kLocationCellIdentifier)
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         cell.textLabel?.text = place.formattedAddress
+        if let _ = DatabaseManager.sharedInstance.findAddressInDatabase(address: place) {
+            cell.detailTextLabel?.text = "saved"
+            cell.detailTextLabel?.textColor = UIColor.green
+        }else {
+            cell.detailTextLabel?.text = ""
+        }
         return cell
     }
     
