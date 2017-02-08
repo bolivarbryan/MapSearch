@@ -116,4 +116,29 @@ class DatabaseManager {
             return nil
         }
     }
+    
+    func deleteAddress(address: Address) {
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        if #available(iOS 10.0, *) {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest =
+                NSFetchRequest<NSManagedObject>(entityName: "Location")
+            fetchRequest.predicate = NSPredicate(format: "placeID == %@", address.placeID)
+            do {
+                let addressObjects = try managedContext.fetch(fetchRequest)
+                if addressObjects.count > 0 {
+                    managedContext.delete(addressObjects[0])
+                }
+                } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+                return
+            }
+        } else {
+            // Fallback on earlier versions
+            return
+        }
+    }
 }
