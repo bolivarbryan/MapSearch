@@ -7,19 +7,33 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
-class AddressListViewController: UIViewController {
+class AddressListViewController: UIViewController, UISearchResultsUpdating {
     @IBOutlet weak var tableView: UITableView!
-    var allLocationsSectionEnabled = true
-    var locations: [Address] = []
+    var allLocationsSectionEnabled = false
+    var places: [Address] = []
     let kSectionSeparator: CGFloat = 28.0
+    let kAllLocationsCellIdentifier = "AllLocationsCellIdentifier"
+    let kLocationCellIdentifier = "LocationCellIdentifier"
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false;
-        //loading database registers
-        locations = DatabaseManager.sharedInstance.listAllAddresses()
-        self.tableView.reloadData()
+        
+        //Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        
+        //Empty State
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.tableFooterView = UIView()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,7 +51,16 @@ class AddressListViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //MARK: - UISearchBar Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        APIRequests.listPlacesWithName(name: searchController.searchBar.text!) { (results) in
+            self.isSearching = true
+            self.places = results
+            self.allLocationsSectionEnabled = self.places.count > 1
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension AddressListViewController: UITableViewDelegate {
@@ -57,6 +80,7 @@ extension AddressListViewController: UITableViewDelegate {
         return 0
     }
 }
+//MARK: - UITableView DataSource and Delegate Methods
 
 extension AddressListViewController: UITableViewDataSource {
     
@@ -65,10 +89,10 @@ extension AddressListViewController: UITableViewDataSource {
             if section == 0 {
                 return 1
             }else{
-                return locations.count
+                return places.count
             }
         }else {
-            return locations.count
+            return places.count
         }
     }
     
@@ -89,26 +113,37 @@ extension AddressListViewController: UITableViewDataSource {
             if indexPath.section == 0 {
                 return allCell()
             }else{
-                return locationCell(location: locations[indexPath.row])
+                return locationCell(place: places[indexPath.row])
             }
         }else {
-            return locationCell(location: locations[indexPath.row])
+            return locationCell(place: places[indexPath.row])
         }
     }
     
     func allCell() -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "AllLocationsCellIdentifier")
+        let cell = UITableViewCell(style: .default, reuseIdentifier: kAllLocationsCellIdentifier)
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.textLabel?.text = "Display all on Map"
+        cell.textLabel?.text = NSLocalizedString("Display all on Map", comment: "Display all on Map")
         return cell
     }
     
-    func locationCell(location: Address) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "LocationCellIdentifier")
+    func locationCell(place: Address) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: kLocationCellIdentifier)
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.textLabel?.text = location.name
+        cell.textLabel?.text = place.formattedAddress
         return cell
     }
     
-    
+}
+
+//MARK: - Empty State
+extension AddressListViewController: DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "No Results", attributes: nil)
+    }
+}
+extension AddressListViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return isSearching
+    }
 }

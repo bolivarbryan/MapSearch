@@ -13,15 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        let address:Address = Address(name: "Casa de julieth", formattedAddress: "Calle 44 # 20 - 150", location: (100, 100), placeID: "ABC")
-        
-        DatabaseManager.sharedInstance.saveAddress(address: address) { (status) in
-            print(status.rawValue)
-        }
-        
-        print(DatabaseManager.sharedInstance.listAllAddresses())
-        
         return true
     }
     
@@ -80,7 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             abort()
         }
-        
         return coordinator
     }()
     
@@ -117,9 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }        }
         
     }
- 
-    
-    
     
 }
 
